@@ -8,7 +8,7 @@ String html = R"***(
 
 <!--HTML body formatting-->
 <style>
-	    body {font-family: "Arial"; background-color: black}
+	    body {font-family: "Arial"; background-color: grey}
       h1   {color: white; text-align:center; font-size: 40px}
 	    h2   {color: black; font-size: 40px}
 	    h3   {color: red; text-align:center; font-size: 20px}
@@ -25,6 +25,10 @@ String html = R"***(
     <p><a href=/ledon>LED on</a></p>
     <p><a href=/ledoff>LED off</a></p>
     
+    <p>HOLA</p>
+    <h2> <a href="https://www.youtube.com/shorts/gPOIWAshAho">El Bicho Siuuu:</a><br><br> 
+    <img src="https://pbs.twimg.com/media/EO9LEfcWsAAJ0ia?format=jpg&name=small">
+    </h2>
 </body>
 </html>
 )***";

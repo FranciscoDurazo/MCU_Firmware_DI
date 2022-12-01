@@ -5,9 +5,9 @@
 //---------------------------------
 #include "html.h"                       //header file containing HTML code
 //---------------------------------
-const char* ssid     = "CETYS_Universidad";
+const char* ssid     = "COMEDOR";
 int led = 5;
-//const char* password = "password";
+const char* password = "2FYtttx62Y";
 ESP8266WebServer server(80);            //pointer to communicate with client via port 80
 //---------------------------------
 
@@ -27,21 +27,21 @@ void ledoff()
 }
 void setup()
 {
-  pinMode(led,OUTPUT);
-  Serial.begin(115200);
-  WiFi.begin(ssid);           //connect to Wi-Fi network with SSID and password
-  Serial.print("\n\r \n\rWorking to connect");
-  while (WiFi.status() != WL_CONNECTED) {delay(500); Serial.print(".");}
-  Serial.println("");
-  Serial.println("ESP8266 Webpage");
-  Serial.println("Connected to WiFi");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
-  server.on("/", handleRoot);           //initialize web server
-  server.on("/ledon", ledon);
-  server.on("/ledoff", ledoff);
-  server.begin();
-  Serial.println("HTTP server started");
+    pinMode(led,OUTPUT);
+    Serial.begin(115200);
+    WiFi.begin(ssid,password);           //connect to Wi-Fi network with SSID and password
+    Serial.print("\n\r \n\rWorking to connect");
+    while (WiFi.status() != WL_CONNECTED) {delay(500); Serial.print(".");}
+    Serial.println("");
+    Serial.println("ESP8266 Webpage");
+    Serial.println("Connected to WiFi");
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
+    server.on("/", handleRoot);           //initialize web server
+    server.on("/ledon", ledon);
+    server.on("/ledoff", ledoff);
+    server.begin();
+    Serial.println("HTTP server started");
 }
 //==============================================================
 void loop()
