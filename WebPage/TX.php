@@ -71,24 +71,6 @@ if($update_number == 1)	//If the received data is for SENT_NUMBER_1, we update t
 	{
 		mysqli_query($con,"UPDATE ESPtable2 SET SENT_NUMBER_1 = $sent_nr_1 WHERE id=$unit AND PASSWORD=$pass");	
 	}
-else if($update_number == 2)	//The same and so on...
-	{
-		mysqli_query($con,"UPDATE ESPtable2 SET SENT_NUMBER_2 = $sent_nr_2 WHERE id=$unit AND PASSWORD=$pass");	;	
-	}
-else if($update_number == 3)
-	{
-		mysqli_query($con,"UPDATE ESPtable2 SET SENT_NUMBER_3 = $sent_nr_3 WHERE id=$unit AND PASSWORD=$pass");	;	
-	}
-else if($update_number == 4)
-	{
-		mysqli_query($con,"UPDATE ESPtable2 SET SENT_NUMBER_4 = $sent_nr_4 WHERE id=$unit AND PASSWORD=$pass");	;	
-	}
-
-else if($update_number == 5)
-	{
-		mysqli_query($con,"UPDATE ESPtable2 SET SENT_BOOL_1 = $sent_bool_1, SENT_BOOL_2 = $sent_bool_2, SENT_BOOL_3 = $sent_bool_3 
-		WHERE id=$unit AND PASSWORD=$pass");	;	
-	}
 
 
 
@@ -105,19 +87,8 @@ if($row['id'] == $unit){
 	
 		//We update the values for the boolean and numebers we receive from the Arduino, then we echo the boolean
 		//and numbers and the text from the database back to the Arduino
-		$b1 = $row['RECEIVED_BOOL1'];	
-		$b2 = $row['RECEIVED_BOOL2'];	
-		$b3 = $row['RECEIVED_BOOL3'];
-		$b4 = $row['RECEIVED_BOOL4'];	
-		$b5 = $row['RECEIVED_BOOL5'];
+		$b1 = $row['RECEIVED_BOOL1'];
 		
-		$n1 = $row['RECEIVED_NUM1'];	
-		$n2 = $row['RECEIVED_NUM2'];	
-		$n3 = $row['RECEIVED_NUM3'];
-		$n4 = $row['RECEIVED_NUM4'];	
-		$n5 = $row['RECEIVED_NUM5'];
-		
-		$n6 = $row['TEXT_1'];
 		
 		//Next line will echo the data back to the Arduino
 		echo " _t1$t1##_b1$b1##_b2$b2##_b3$b3##_b4$b4##_b5$b5##_n1$n1##_n2$n2##_n3$n3##_n4$n4##_n5$n5##_n6$n6##";
