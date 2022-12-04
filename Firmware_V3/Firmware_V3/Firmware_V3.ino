@@ -64,7 +64,7 @@ void loop() {
       }
 
       //Begin new connection to website       
-      http.begin(client,"https://project-8266-2022.000webhostapp.com/esp32_update.php");   //Indicate the destination webpage 
+      http.begin(client,"http://project-8266-2022.000webhostapp.com/esp32_update.php");   //Indicate the destination webpage 
       //http.addHeader("Content-Type", "application/x-www-form-urlencoded");         //Prepare the header
       
       int response_code = http.POST(data_to_send);                                //Send the POST. This will giveg us a response code
@@ -98,5 +98,6 @@ void loop() {
     else{
       Serial.println("WIFI connection error");
     }
+    
   }
 }
