@@ -1,5 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include "DHTesp.h"
+
 // Sustituir por los datos de vuestro WiFi
 const char* ssid = "INFINITUM7188";              //Add your WIFI network name 
 const char* password =  "pKTnn7CvtU";           //Add WIFI password
@@ -11,7 +13,7 @@ bool toggle_pressed = false;          //Each time we press the push button
 String data_to_send = "";             //Text data to send to the server
 unsigned int Actual_Millis, Previous_Millis;
 int refresh_time = 200;               //Refresh rate of connection to website (recommended more than 1s)
-
+DHTesp dht;
 
 //Inputs/outputs
 int button1 = 13;                     //Connect push button on this pin
@@ -24,6 +26,7 @@ void setup() {
   delay(10);
   Serial.begin(115200);                   //Start monitor
   pinMode(LED, OUTPUT);                   //Set pin 2 as OUTPUT
+  dht.setup(4,DHTesp::DHT11);
   //pinMode(button1, INPUT_PULLDOWN);       //Set pin 13 as INPUT with pulldown
   //attachInterrupt(button1, isr, RISING);  //Create interruption on pin 13
 
@@ -37,14 +40,23 @@ void setup() {
   Serial.print("Connected, my IP: ");
   Serial.println(WiFi.localIP());
   Actual_Millis = millis();               //Save time for refresh loop
-  Previous_Millis = Actual_Millis; 
+  Previous_Millis = Actual_Millis;
+   
 }
 HTTPClient http;
 WiFiClient client;
 String payload;
+float past_sense = 0;
+float sense = 0;
+
 void loop() {  
   //We make the refresh loop using millis() so we don't have to sue delay();
-  int sense = analogRead(A0);
+  past_sense = sense;
+  sense = dht.getTemperature();
+  if(isnan(sense)){
+    Serial.println("Failed to read DHT11");
+    sense = past_sense; 
+  }
   Serial.println(sense); 
   if (http.begin(client, url)) //Iniciar conexión
    {
@@ -69,16 +81,19 @@ void loop() {
 
       http.end();
       if(payload == "LED_is_on"){
-        digitalWrite(LED,HIGH);
+        digitalWrite(LED,LOW);
       }
       else if(payload == "LED_is_off"){
-        digitalWrite(LED,LOW);
+        digitalWrite(LED,HIGH);
       }
    }
    else {
       Serial.printf("[HTTP} Unable to connect\n");
    }
    //Método 2
+   Serial.println(" ");
+   Serial.println(" ");
+    
     if(http.begin(client, url)){
       http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
       Serial.print("[HTTP] POST...\n");

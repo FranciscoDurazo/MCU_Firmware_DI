@@ -91,14 +91,14 @@ $row  = mysqli_fetch_assoc($result);
 
 		<div class="col_3" >
 			
-			<?php echo '<h1 style="text-align: center;">The status of the LED is: '.$row['status'].'</h1>';?>
+			<?php echo '<h1 style="text-align: center;">Output Status: '.$row['status'].'</h1>';?>
 			
 			<div class="col_3">
 			</div>
 			
 			<div class="col_3" style="text-align: center;">
 			<form action="index.php" method="post" id="LED" enctype="multipart/form-data">			
-				<input id="submit_button" type="submit" name="toggle_LED" value="Toggle LED" />
+				<input id="submit_button" type="submit" name="toggle_LED" value="Toggle Output" />
 			</form>
 				
 			<script type="text/javascript">
@@ -108,24 +108,24 @@ $row  = mysqli_fetch_assoc($result);
 				}, 1000);
 			});
 			</script>
-			<br>
-			<br>
+			<!--<br>-->
 			<?php
 				if($row['status'] == 0){?>
-				<div class="led_img">
-					<img id="contest_img" src="led_off.png" width="100%" height="100%">
+			<!--	<div class="led_img">
+					<img id="contest_img" src="led_off.png" width="50%" height="50%">
 				</div>
+				-->
 			<?php	
 				}
 				else{ ?>
-				<div class="led_img">
-					<img id="contest_img" src="led_on.png" width="100%" height="100%">
+			<!--	<div class="led_img">
+					<img id="contest_img" src="led_on.png" width="50%" height="50%">
 				</div>
+				-->
 			<?php
 				}
 			?>
-			
-				
+			<?php echo '<h1 style="text-align: center;">Sensor Reading: '.$row['sense'].'°C</h1>';?>	
 				
 				
 			</div>
