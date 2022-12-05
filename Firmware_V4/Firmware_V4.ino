@@ -44,7 +44,8 @@ WiFiClient client;
 String payload;
 void loop() {  
   //We make the refresh loop using millis() so we don't have to sue delay();
-  
+  int sense = analogRead(A0);
+  Serial.println(sense); 
   if (http.begin(client, url)) //Iniciar conexión
    {
       Serial.print("[HTTP] GET...\n");
@@ -54,12 +55,18 @@ void loop() {
          if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
             payload = http.getString();   // Obtener respuesta
             Serial.println(payload);   // Mostrar respuesta por serial
+            Serial.println("Successful request");   // Mostrar respuesta por serial
             yield();
          }
       }
       else {
          Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
       }
+
+      //Send sensor Value
+      
+
+
       http.end();
       if(payload == "LED_is_on"){
         digitalWrite(LED,HIGH);
@@ -71,8 +78,35 @@ void loop() {
    else {
       Serial.printf("[HTTP} Unable to connect\n");
    }
+   //Método 2
+    if(http.begin(client, url)){
+      http.addHeader("Content-Type", "application/x-www-form-urlencoded"); 
+      Serial.print("[HTTP] POST...\n");
+      String httpRequestData = "value1=" + String(sense);
 
-   Serial.println("Llego aqui");
+      int httpCode = http.POST(httpRequestData);  // Realizar petición
+      if (httpCode > 0) {
+         Serial.printf("[HTTP] POST... code: %d\n", httpCode);
+         if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
+            //Serial.println(http.getString());   // Obtener respuesta
+            Serial.println("Successful request");   // Mostrar respuesta por serial
+            yield();
+         }
+      }
+      else {
+         Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
+      }
+      http.end();
+    }
+    else{
+      Serial.printf("[HTTP} Unable to connect\n");
+    }
+
+
+   Serial.println(" ");
+   Serial.println(" ");
+   Serial.println(" ");
+   Serial.println(" ");
    
    delay(3000);
    //Serial.println("Llego aqui x2");

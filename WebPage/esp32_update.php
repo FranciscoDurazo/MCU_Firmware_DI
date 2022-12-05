@@ -9,18 +9,17 @@ if (!$conn) {
 }
 
 //Read the database
-if (isset($_POST['check_LED_status'])) {
-	$led_id = $_POST['check_LED_status'];	
-	$sql = "SELECT * FROM Sensor WHERE id = '$led_id';";
+//Update the database
+if (isset($_POST['value1'])) {
+	$val = $_POST['value1'];	
+	$sql = "SELECT * FROM Sensor WHERE id = 1;";
 	$result   = mysqli_query($conn, $sql);
 	$row  = mysqli_fetch_assoc($result);
-	if($row['status'] == 0){
-		echo "LED_is_off";
-	}
-	else{
-		echo "LED_is_on";
-	}	
-}	
+	
+	$update = mysqli_query($conn, "UPDATE Sensor SET sense = '$val' WHERE id = 1;");
+	//echo $led_id;
+}
+
 //Request GET
 if (isset($_GET)) {
 	$sql = "SELECT * FROM Sensor WHERE id = '1';";
@@ -33,19 +32,5 @@ if (isset($_GET)) {
 		echo "LED_is_on";
 	}	
 }
-//Update the database
-if (isset($_POST['toggle_LED'])) {
-	$led_id = $_POST['toggle_LED'];	
-	$sql = "SELECT * FROM Sensor WHERE id = '$led_id';";
-	$result   = mysqli_query($conn, $sql);
-	$row  = mysqli_fetch_assoc($result);
-	if($row['status'] == 0){
-		$update = mysqli_query($conn, "UPDATE Sensor SET status = 1 WHERE id = 1;");
-		echo "LED_is_on";
-	}
-	else{
-		$update = mysqli_query($conn, "UPDATE Sensor SET status = 0 WHERE id = 1;");
-		echo "LED_is_off";
-	}	
-}	
+	
 ?>
