@@ -3,9 +3,12 @@
 #include "DHTesp.h"
 
 // Sustituir por los datos de vuestro WiFi
-const char* ssid = "INFINITUM7188";              //Add your WIFI network name 
-const char* password =  "pKTnn7CvtU";           //Add WIFI password
-String url = "http://project-8266-2022.000webhostapp.com/esp32_update.php";
+//const char* ssid = "INFINITUM7188";              //Add your WIFI network name 
+//const char* password =  "pKTnn7CvtU";           //Add WIFI password
+
+const char* ssid =  "CETYS_Universidad";
+const char* password =  "";
+String url = "http://esp-di.000webhostapp.com/esp32_update.php";
 
 //Variables used in the code
 String LED_id = "1";                  //Just in case you control more than 1 LED

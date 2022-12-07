@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$dBUsername = "id19945412_fcodl2001";
-$dBPassword = "97_ysi-@<UoI+09c";
-$dBName = "id19945412_daq_cntrl";
+$dBUsername = "id19967428_fcodl2001";
+$dBPassword = "S>1AghvqzR&6Bb{o";
+$dBName = "id19967428_espdb";
 $conn = mysqli_connect($servername, $dBUsername, $dBPassword, $dBName);
 if (!$conn) {
 	die("Connection failed: ".mysqli_connect_error());
